@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20220505184618) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "username"
     t.string   "avatar_url"
     t.string   "email"
-    t.string   "password"
+    t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
