@@ -4,6 +4,7 @@ source "https://rubygems.org"
 gem 'rake'
 gem 'activesupport'
 gem 'activerecord', '~> 4.2.0'
+gem 'bcrypt'
 
 gem 'sinatra'
 gem 'sinatra-contrib'
