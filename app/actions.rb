@@ -4,15 +4,21 @@ helpers do
   end
 end
 
+######################################################
+
 get '/' do
   @finstagram_posts = FinstagramPost.order(created_at: :desc)
   erb(:index)
 end
 
+######################################################
+
 get '/signup' do     # if a user navigates to the path "/signup",
   @user = User.new   # setup empty @user object
   erb(:signup)       # render "app/views/signup.erb"
 end
+
+######################################################
 
 post '/signup' do
   email      = params[:email]
@@ -29,9 +35,13 @@ post '/signup' do
   end
 end
 
+######################################################
+
 get '/login' do    # when a GET request comes into /login
   erb(:login)      # render app/views/login.erb
 end
+
+######################################################
 
 post '/login' do
   username = params[:username]
@@ -39,7 +49,7 @@ post '/login' do
 
   user = User.find_by(username: username)  
 
-  if user && user.password == password
+  if user && user.authenticate(password)
     session[:user_id] = user.id
     redirect to('/')
   else
@@ -48,7 +58,35 @@ post '/login' do
   end
 end
 
+######################################################
+
 get '/logout' do
   session[:user_id] = nil
   redirect to('/')
+end
+
+get '/finstagram_posts/new' do
+  @finstagram_post = FinstagramPost.new
+  erb(:"finstagram_posts/new")
+end
+
+######################################################
+
+post '/finstagram_posts' do
+  photo_url = params[:photo_url]
+
+  @finstagram_post = FinstagramPost.new({ photo_url: photo_url, user_id: current_user.id })
+
+  if @finstagram_post.save
+    redirect(to('/'))
+  else
+    erb(:"finstagram_posts/new")
+  end
+end
+
+######################################################
+
+get '/finstagram_posts/:id' do
+  @finstagram_post = FinstagramPost.find(params[:id])   # find the finstagram post with the ID from the URL
+  erb(:"finstagram_posts/show")               # render app/views/finstagram_posts/show.erb
 end
