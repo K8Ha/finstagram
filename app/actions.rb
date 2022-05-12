@@ -65,6 +65,8 @@ get '/logout' do
   redirect to('/')
 end
 
+######################################################
+
 get '/finstagram_posts/new' do
   @finstagram_post = FinstagramPost.new
   erb(:"finstagram_posts/new")
