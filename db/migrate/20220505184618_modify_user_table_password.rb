@@ -1,4 +1,5 @@
-class ModifyUserTablePassword < ActiveRecord::Migration
+class ModifyUserTablePassword < ActiveRecord::Migration[5.2]
+
   def up
     rename_column :users, :password, :password_digest
   end
